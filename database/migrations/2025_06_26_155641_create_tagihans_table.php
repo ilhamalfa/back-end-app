@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('iurans', function (Blueprint $table) {
+        Schema::create('tagihans', function (Blueprint $table) {
             $table->id();
             $table->enum('status', ['lunas', 'belum bayar']);
             $table->enum('tipe', ['kebersihan', 'satpam']);
             $table->unsignedBigInteger('jumlah');
-            $table->string('keterangan');
             $table->date('bulan');
             $table->foreignId('penghuni_id')
                     ->constrained('penghunis')
@@ -34,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('iurans');
+        Schema::dropIfExists('tagihans');
     }
 };

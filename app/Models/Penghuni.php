@@ -11,7 +11,7 @@ class Penghuni extends Model
 
     protected $guarded = ['id'];
 
-    public function penghuniRumah(){
-        return $this->hasMany(PenghuniRumah::class);
+    public function rumah(){
+        return $this->belongsTo(Rumah::class);
     }
 }

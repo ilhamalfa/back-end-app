@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rumah extends Model
+class Pembayaran extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
 
-    public function penghuni(){
-        return $this->hasMany(Penghuni::class);
+    public function tagihan(){
+        return $this->belongsTo(tagihan::class);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Iuran\PembayaranController;
+use App\Http\Controllers\Iuran\PengeluaranController;
 use App\Http\Controllers\Penghuni\PenghuniController;
 use App\Http\Controllers\Rumah\RumahController;
 use Illuminate\Http\Request;
@@ -28,4 +30,8 @@ Route::post('/penghuni/remove/{id}', [PenghuniController::class, 'remove']);
 
 
 Route::post('/rumah/store', [RumahController::class, 'store']);
+
+Route::post('/tagihan/pembayaran/{id}', [PembayaranController::class, 'pembayaran']);
+
+Route::post('/tagihan/pengeluaran/', [PengeluaranController::class, 'pengeluaran']);
 

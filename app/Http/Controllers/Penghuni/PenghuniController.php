@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Penghuni;
 use App\Http\Controllers\Controller;
 use App\Models\Penghuni;
 use App\Models\Rumah;
+use App\Models\Tagihan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -31,6 +33,30 @@ class PenghuniController extends Controller
         $rumah_data->update([
             'is_occupied' => true
         ]);
+
+        $bulanIni = Carbon::now()->format('Y-m-d');
+        
+        $tagihan = Tagihan::where('penghuni_id', $penghuni->id)
+                            ->where('bulan', $bulanIni)
+                            ->doesntExist();
+
+        if($tagihan){
+            Tagihan::create([
+                'penghuni_id' => $penghuni->id,
+                'bulan' => $bulanIni,
+                'status' => 'belum bayar',
+                'tipe' => 'kebersihan',
+                'jumlah' => 15000,
+            ]);
+
+            Tagihan::create([
+                'penghuni_id' => $penghuni->id,
+                'bulan' => $bulanIni,
+                'status' => 'belum bayar',
+                'tipe' => 'satpam',
+                'jumlah' => 100000,
+            ]);
+        }
     
         return response()->json([
             'message' => 'Data penghuni berhasil ditambahkan!',
