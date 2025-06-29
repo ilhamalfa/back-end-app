@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('jumlah');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->date('tanggal_bayar');
             $table->foreignId('tagihan_id')
                     ->constrained('tagihans')

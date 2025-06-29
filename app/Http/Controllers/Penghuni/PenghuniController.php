@@ -112,4 +112,41 @@ class PenghuniController extends Controller
             'message' => 'Berhasil men-copot penghuni ke rumah!',
         ], 200);
     }
+
+    public function get_penghuni(){
+        $penghuni_datas = Penghuni::all();
+        $datas = [];
+        $i = 0;
+        $a = 1;
+
+        foreach ($penghuni_datas as $penghuni) {
+            $datas[$i] = [
+                'no' => $a,
+                'id' => $penghuni->id,
+                'nama' => $penghuni->nama,
+                'foto_ktp' => $penghuni->foto_ktp,
+                'status_penghuni' => $penghuni->status_penghuni,
+                'no_telp' => $penghuni->no_telp,
+                'is_married' => $penghuni->is_married,
+                'is_aktif' => $penghuni->is_aktif,
+            ];
+
+            if($penghuni->has('rumah') && $penghuni->is_aktif == true){
+                $datas[$i]['nomor_rumah'] = $penghuni->rumah->nomor_rumah;
+            } else{
+                $datas[$i]['nomor_rumah'] = null;
+            }
+
+            $a++;
+            $i++;
+        }
+
+        return response()->json($datas, 200);
+    }
+
+    public function penghuni_detail($id){
+        $penghuni = Penghuni::findOrFail($id);
+
+        return response()->json($penghuni, 200);
+    }
 }

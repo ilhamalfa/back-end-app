@@ -9,6 +9,16 @@ use Illuminate\Http\Request;
 
 class PengeluaranController extends Controller
 {
+    public function get_data(){
+        $datas = Pengeluaran::whereMonth('bulan', Carbon::now()->month)
+                                ->get();
+
+        return response()->json([
+            'message' => 'Data Pengeluaran berhasil ditambahkan!',
+            'datas' => $datas
+        ], 201);
+    }
+
     public function pengeluaran(Request $request){
         $validate = $this->validate($request, [
                         'jumlah' => 'required|integer',
@@ -26,4 +36,5 @@ class PengeluaranController extends Controller
             'data' => $pengeluaran
         ], 201);
     }
+    
 }
